@@ -1,4 +1,5 @@
 import Modal from './Modal';
+import Logo from './Logo';
 import type { Contract, Customer, PaymentRecord } from '../types';
 import { formatCurrency } from '../utils/formatCurrency';
 import { formatDate } from '../utils/formatDate';
@@ -29,12 +30,7 @@ const ReceiptModal = ({
           <div id="receipt-print-area" className="rounded-xl border border-slate-200 p-5">
             <div className="mb-4 flex items-start justify-between gap-4 border-b border-slate-200 pb-4">
               <div>
-                <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 text-xs text-slate-500">
-                  LOGO
-                </div>
-                <h3 className="text-lg font-bold text-slate-900">
-                  Kpoikpoimingi Investment Limited
-                </h3>
+                <Logo size="lg" className="mb-2 max-w-[240px]" />
                 <p className="text-sm text-slate-500">Hire Purchase Payment Receipt</p>
               </div>
               <div className="text-right text-sm">

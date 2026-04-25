@@ -1,4 +1,5 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import Logo from './Logo';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -155,16 +156,18 @@ const SidebarContent = ({
       >
         <div className={`flex items-center ${showLabels ? 'justify-between gap-3' : 'justify-center'}`}>
           {showLabels ? (
-            <div className="min-w-0">
-              <p className="truncate text-xs font-semibold uppercase tracking-wider text-brand-100">
-                Kpoikpoimingi
-              </p>
-              <p className="truncate text-sm font-semibold text-white">Investment Limited</p>
-            </div>
+            <Link to="/" onClick={onClose} className="min-w-0 max-w-full" title="Go to Dashboard">
+              <Logo size="lg" className="brightness-0 invert" />
+            </Link>
           ) : (
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-500 text-xs font-bold text-white">
-              KIL
-            </div>
+            <Link
+              to="/"
+              onClick={onClose}
+              className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-500/50 p-1"
+              title="Go to Dashboard"
+            >
+              <Logo size="sm" className="brightness-0 invert" />
+            </Link>
           )}
 
           {!isMobile ? (
