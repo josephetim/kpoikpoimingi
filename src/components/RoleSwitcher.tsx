@@ -4,16 +4,17 @@ import { ROLES } from '../types';
 interface RoleSwitcherProps {
   role: Role;
   onChange: (role: Role) => void;
+  className?: string;
 }
 
-const RoleSwitcher = ({ role, onChange }: RoleSwitcherProps) => {
+const RoleSwitcher = ({ role, onChange, className = '' }: RoleSwitcherProps) => {
   return (
-    <div className="flex items-center gap-2">
+    <div className={`flex min-w-0 flex-wrap items-center justify-start gap-2 sm:justify-end ${className}`}>
       <span className="hidden text-xs font-semibold uppercase tracking-wide text-slate-500 sm:block">
         Role
       </span>
       <select
-        className="input-base min-w-[140px] py-1.5 text-xs sm:text-sm"
+        className="input-base w-full min-w-0 py-1.5 text-xs sm:min-w-[140px] sm:w-auto sm:text-sm"
         value={role}
         onChange={(event) => onChange(event.target.value as Role)}
       >

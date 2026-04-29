@@ -27,25 +27,33 @@ const Navbar = ({ role, onRoleChange, onOpenMenu }: NavbarProps) => {
 
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
-      <div className="flex items-center justify-between gap-4 px-4 py-3 md:px-6">
-        <div className="flex min-w-0 items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3 px-4 py-3 md:px-6">
+        <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
           <button
             type="button"
-            className="rounded-md border border-slate-200 px-2 py-1 text-sm text-slate-700 lg:hidden"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-slate-200 text-slate-700 lg:hidden"
             onClick={onOpenMenu}
+            aria-label="Open navigation menu"
           >
-            Menu
+            <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
+              <path
+                d="M4 7h16M4 12h16M4 17h16"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              />
+            </svg>
           </button>
-          <Link to="/" className="flex-shrink-0" title="Go to Dashboard">
+          <Link to="/" className="min-w-0 max-w-[140px] shrink-0 sm:max-w-none" title="Go to Dashboard">
             <Logo size="md" />
           </Link>
           <div className="min-w-0">
-            <h1 className="text-lg font-bold text-slate-900">{pageTitle}</h1>
-            <p className="text-xs text-slate-500">{formatDate(new Date().toISOString())}</p>
+            <h1 className="truncate text-base font-bold text-slate-900 sm:text-lg">{pageTitle}</h1>
+            <p className="truncate text-xs text-slate-500">{formatDate(new Date().toISOString())}</p>
           </div>
         </div>
 
-        <RoleSwitcher role={role} onChange={onRoleChange} />
+        <RoleSwitcher role={role} onChange={onRoleChange} className="w-full sm:ml-auto sm:w-auto" />
       </div>
     </header>
   );

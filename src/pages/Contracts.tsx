@@ -190,6 +190,7 @@ const Contracts = ({ role }: ContractsProps) => {
         ]}
         hasData={filteredContracts.length > 0}
         emptyMessage="No contracts match your filters."
+        minWidthClassName="min-w-[1300px]"
       >
         {filteredContracts.map((contract) => (
           <tr key={contract.id}>
@@ -206,7 +207,7 @@ const Contracts = ({ role }: ContractsProps) => {
             </td>
             <td className="whitespace-nowrap px-4 py-3">{formatDate(contract.startDate)}</td>
             <td className="whitespace-nowrap px-4 py-3">
-              <Link className="btn-secondary inline-flex" to={`/contracts/${contract.id}`}>
+              <Link className="btn-secondary w-full sm:w-auto" to={`/contracts/${contract.id}`}>
                 View
               </Link>
             </td>

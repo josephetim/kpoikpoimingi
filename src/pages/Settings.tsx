@@ -102,7 +102,7 @@ const Settings = ({ role }: SettingsProps) => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="min-w-0 space-y-6">
       <Card title="Role & Access">
         <div className="space-y-2 text-sm">
           <p>

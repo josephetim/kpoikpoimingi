@@ -32,7 +32,7 @@ const App = () => {
   }, [isSidebarCollapsed]);
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen min-w-0 overflow-x-hidden bg-slate-50">
       <Sidebar
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
@@ -42,7 +42,7 @@ const App = () => {
         onToggleCollapse={() => setIsSidebarCollapsed((current) => !current)}
       />
 
-      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="flex min-w-0 flex-1 flex-col overflow-x-hidden">
         <Navbar
           role={role}
           onRoleChange={setRole}

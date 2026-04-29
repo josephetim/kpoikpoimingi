@@ -11,10 +11,10 @@ interface CardProps {
 
 const Card = ({ title, value, subtitle, action, children, className = '' }: CardProps) => {
   return (
-    <div className={`rounded-xl border border-slate-200 bg-white p-5 shadow-soft ${className}`}>
+    <div className={`min-w-0 max-w-full overflow-hidden rounded-xl border border-slate-200 bg-white p-5 shadow-soft ${className}`}>
       {(title || action) && (
-        <div className="mb-3 flex items-start justify-between gap-3">
-          {title ? <h3 className="text-sm font-semibold text-slate-600">{title}</h3> : <span />}
+        <div className="mb-3 flex min-w-0 items-start justify-between gap-3">
+          {title ? <h3 className="truncate text-sm font-semibold text-slate-600">{title}</h3> : <span />}
           {action}
         </div>
       )}

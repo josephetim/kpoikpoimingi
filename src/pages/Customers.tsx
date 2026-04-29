@@ -59,33 +59,58 @@ const Customers = ({ role }: CustomersProps) => {
     (contract) => contract.status !== 'Completed',
   ).length;
 
+  const resetFilters = () => {
+    setSearchTerm('');
+    setBranchFilter('All');
+  };
+
   if (customersQuery.isLoading || contractsQuery.isLoading) {
     return <p className="rounded-lg bg-white p-4 text-sm text-slate-500">Loading customers...</p>;
   }
 
   return (
-    <div className="space-y-4">
-      <div className="grid gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-soft md:grid-cols-4">
-        <input
-          type="text"
-          className="input-base md:col-span-3"
-          placeholder="Search by name, phone, or email"
-          value={searchTerm}
-          onChange={(event) => setSearchTerm(event.target.value)}
-        />
-        <select
-          className="input-base"
-          value={branchFilter}
-          disabled={role === 'Staff'}
-          onChange={(event) => setBranchFilter(event.target.value as typeof branchFilter)}
-        >
-          <option value="All">All Branches</option>
-          {BRANCHES.filter((branch) => visibleBranches.includes(branch)).map((branch) => (
-            <option key={branch} value={branch}>
-              {branch}
-            </option>
-          ))}
-        </select>
+    <div className="min-w-0 space-y-4">
+      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white p-4 shadow-soft">
+        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-slate-500">Filter customers by name, phone, email, and branch.</p>
+          <button type="button" className="btn-secondary w-full sm:w-auto" onClick={resetFilters}>
+            Reset Filters
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6">
+          <div className="min-w-0 sm:col-span-2 lg:col-span-2">
+            <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-600">
+              Search
+            </label>
+            <input
+              type="text"
+              className="input-base w-full min-w-0"
+              placeholder="Name, phone, or email"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+            />
+          </div>
+
+          <div className="min-w-0">
+            <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-600">
+              Branch
+            </label>
+            <select
+              className="input-base w-full min-w-0"
+              value={branchFilter}
+              disabled={role === 'Staff'}
+              onChange={(event) => setBranchFilter(event.target.value as typeof branchFilter)}
+            >
+              <option value="All">All Branches</option>
+              {BRANCHES.filter((branch) => visibleBranches.includes(branch)).map((branch) => (
+                <option key={branch} value={branch}>
+                  {branch}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
       </div>
 
       <Table
@@ -99,6 +124,7 @@ const Customers = ({ role }: CustomersProps) => {
           'Date Registered',
         ]}
         hasData={filteredCustomers.length > 0}
+        minWidthClassName="min-w-[980px]"
       >
         {filteredCustomers.map((customer) => {
           const customerContracts = contracts.filter((contract) => contract.customerId === customer.id);
@@ -130,11 +156,11 @@ const Customers = ({ role }: CustomersProps) => {
         open={Boolean(selectedCustomer)}
         onClose={() => setSelectedCustomerId(null)}
         title="Customer Details"
-        widthClassName="max-w-4xl"
+        widthClassName="sm:max-w-4xl"
       >
         {selectedCustomer ? (
-          <div className="space-y-6">
-            <div className="grid gap-3 text-sm sm:grid-cols-2">
+          <div className="min-w-0 space-y-6">
+            <div className="grid gap-3 break-words text-sm sm:grid-cols-2">
               <p>
                 <span className="font-semibold text-slate-700">Customer Name:</span> {selectedCustomer.name}
               </p>
@@ -168,10 +194,10 @@ const Customers = ({ role }: CustomersProps) => {
             </div>
 
             <div>
-              <div className="mb-2 flex items-center justify-between">
+              <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
                 <h3 className="text-sm font-semibold text-slate-700">Contract List Preview</h3>
                 <Link
-                  className="btn-secondary inline-flex text-xs"
+                  className="btn-secondary w-full text-xs sm:w-auto"
                   to={`/customers/${selectedCustomer.id}`}
                   onClick={() => setSelectedCustomerId(null)}
                 >
@@ -182,6 +208,7 @@ const Customers = ({ role }: CustomersProps) => {
                 headers={['Contract ID', 'Item', 'Status', 'Outstanding']}
                 hasData={selectedCustomerContracts.length > 0}
                 emptyMessage="No contracts for this customer."
+                minWidthClassName="min-w-[720px]"
               >
                 {selectedCustomerContracts.slice(0, 6).map((contract) => (
                   <tr key={contract.id}>

@@ -145,7 +145,7 @@ const Dashboard = ({ role }: DashboardProps) => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="min-w-0 space-y-6">
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <Card title="Total Active Contracts" value={String(totalActiveContracts)} />
         <Card title="Total Collections This Month" value={formatCurrency(totalCollectionsThisMonth)} />
@@ -155,14 +155,14 @@ const Dashboard = ({ role }: DashboardProps) => {
 
       <div className="grid gap-4 xl:grid-cols-3">
         <Card title="Monthly Collections vs Expected" className="xl:col-span-2">
-          <div className="h-80">
+          <div className="h-64 sm:h-72 lg:h-80">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={monthlyCollectionsData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                 <XAxis dataKey="month" />
                 <YAxis />
                 <Tooltip formatter={(value) => formatCurrency(Number(value ?? 0))} />
-                <Legend />
+                <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: '12px', lineHeight: '18px' }} />
                 <Bar dataKey="expected" fill="#f59e0b" name="Expected" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="collected" fill="#1a6b3c" name="Collected" radius={[4, 4, 0, 0]} />
               </BarChart>
@@ -171,7 +171,7 @@ const Dashboard = ({ role }: DashboardProps) => {
         </Card>
 
         <Card title="Contract Status Breakdown">
-          <div className="h-80">
+          <div className="h-64 sm:h-72 lg:h-80">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -187,7 +187,7 @@ const Dashboard = ({ role }: DashboardProps) => {
                   ))}
                 </Pie>
                 <Tooltip />
-                <Legend />
+                <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: '12px', lineHeight: '18px' }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -196,7 +196,7 @@ const Dashboard = ({ role }: DashboardProps) => {
 
       <div className="grid gap-4 xl:grid-cols-2">
         <Card title="Contracts by Asset Type">
-          <div className="h-72">
+          <div className="h-64 sm:h-72">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={assetTypeBreakdown}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
@@ -238,6 +238,7 @@ const Dashboard = ({ role }: DashboardProps) => {
           <Table
             headers={['Branch', 'Active Contracts', 'Collected', 'Outstanding']}
             hasData={branchPerformance.length > 0}
+            minWidthClassName="min-w-[640px]"
           >
             {branchPerformance.map((branch) => (
               <tr key={branch.branch}>

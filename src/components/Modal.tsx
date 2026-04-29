@@ -8,34 +8,36 @@ interface ModalProps {
   widthClassName?: string;
 }
 
-const Modal = ({ open, title, onClose, children, widthClassName = 'max-w-xl' }: ModalProps) => {
+const Modal = ({ open, title, onClose, children, widthClassName = 'sm:max-w-xl' }: ModalProps) => {
   if (!open) {
     return null;
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4">
-      <div
-        className={`max-h-[92vh] w-full overflow-hidden rounded-xl border border-slate-200 bg-white shadow-soft ${widthClassName}`}
-      >
-        <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3">
-          <h2 className="text-base font-semibold text-slate-900">{title}</h2>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-md border border-slate-200 px-2 py-1 text-xs font-semibold text-slate-600 hover:bg-slate-50"
-          >
-            Close
-          </button>
-        </div>
-        <div className="max-h-[calc(92vh-58px)] overflow-y-auto p-4">{children}</div>
-      </div>
+    <div className="fixed inset-0 z-50 p-4 sm:p-6">
       <button
         type="button"
         aria-label="Close modal backdrop"
-        className="absolute inset-0 -z-10 h-full w-full cursor-default bg-transparent"
+        className="absolute inset-0 bg-slate-900/60"
         onClick={onClose}
       />
+      <div className="relative z-10 flex h-full items-center justify-center">
+        <div
+          className={`max-h-[90vh] w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-soft sm:w-full ${widthClassName}`}
+        >
+          <div className="flex items-center justify-between gap-3 border-b border-slate-200 px-4 py-3 sm:px-5">
+            <h2 className="truncate pr-2 text-base font-semibold text-slate-900">{title}</h2>
+            <button
+              type="button"
+              onClick={onClose}
+              className="shrink-0 rounded-md border border-slate-200 px-2 py-1 text-xs font-semibold text-slate-600 hover:bg-slate-50"
+            >
+              Close
+            </button>
+          </div>
+          <div className="max-h-[calc(90vh-58px)] overflow-y-auto px-4 py-4 sm:px-5">{children}</div>
+        </div>
+      </div>
     </div>
   );
 };

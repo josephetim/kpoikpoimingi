@@ -130,7 +130,7 @@ const CollapseIcon = ({ collapsed }: { collapsed: boolean }) => (
 );
 
 const navItemClasses =
-  'group flex items-center rounded-lg py-2 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-200';
+  'group flex min-w-0 items-center rounded-lg py-2 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-200';
 
 const activeNavItemClasses = 'bg-brand-500 text-white hover:bg-brand-600 hover:text-white';
 
@@ -188,7 +188,7 @@ const SidebarContent = ({
         ) : null}
       </div>
 
-      <nav className={`flex-1 space-y-2 py-4 ${showLabels ? 'px-3' : 'px-2'}`}>
+      <nav className={`min-w-0 flex-1 space-y-2 overflow-y-auto py-4 ${showLabels ? 'px-3' : 'px-2'}`}>
         <NavLink
           to="/"
           onClick={onClose}
@@ -200,7 +200,7 @@ const SidebarContent = ({
           }
         >
           <DashboardIcon />
-          {showLabels ? <span>Dashboard</span> : null}
+          {showLabels ? <span className="truncate">Dashboard</span> : null}
         </NavLink>
 
         <NavLink
@@ -214,7 +214,7 @@ const SidebarContent = ({
           }
         >
           <CustomerIcon />
-          {showLabels ? <span>Customers</span> : null}
+          {showLabels ? <span className="truncate">Customers</span> : null}
         </NavLink>
 
         <NavLink
@@ -228,7 +228,7 @@ const SidebarContent = ({
           }
         >
           <ContractIcon />
-          {showLabels ? <span>Contracts</span> : null}
+          {showLabels ? <span className="truncate">Contracts</span> : null}
         </NavLink>
 
         {canAccessPayments ? (
@@ -243,7 +243,7 @@ const SidebarContent = ({
             }
           >
             <PaymentIcon />
-            {showLabels ? <span>Payments</span> : null}
+            {showLabels ? <span className="truncate">Payments</span> : null}
           </NavLink>
         ) : showLabels ? (
           <div className="rounded-lg border border-brand-400/30 bg-brand-600/40 px-3 py-2 text-xs text-brand-100">
@@ -270,7 +270,7 @@ const SidebarContent = ({
             }
           >
             <ReportIcon />
-            {showLabels ? <span>Reports</span> : null}
+            {showLabels ? <span className="truncate">Reports</span> : null}
           </NavLink>
         ) : showLabels ? (
           <div className="rounded-lg border border-brand-400/30 bg-brand-600/40 px-3 py-2 text-xs text-brand-100">
@@ -296,7 +296,7 @@ const SidebarContent = ({
           }
         >
           <SettingsIcon />
-          {showLabels ? <span>Settings</span> : null}
+          {showLabels ? <span className="truncate">Settings</span> : null}
         </NavLink>
       </nav>
     </div>
@@ -314,7 +314,7 @@ const Sidebar = ({
   return (
     <>
       <aside
-        className={`hidden shrink-0 border-r border-brand-400/30 bg-brand-700 transition-[width] duration-300 ease-in-out lg:flex lg:flex-col ${
+        className={`hidden shrink-0 overflow-hidden border-r border-brand-400/30 bg-brand-700 transition-[width] duration-300 ease-in-out lg:flex lg:flex-col ${
           isCollapsed ? 'w-20' : 'w-64'
         }`}
       >
@@ -327,26 +327,30 @@ const Sidebar = ({
         />
       </aside>
 
-      {isOpen ? (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <button
-            type="button"
-            aria-label="Close sidebar overlay"
-            className="absolute inset-0 bg-slate-900/50"
-            onClick={onClose}
+      <div className={`fixed inset-0 z-50 lg:hidden ${isOpen ? '' : 'pointer-events-none'}`}>
+        <button
+          type="button"
+          aria-label="Close sidebar overlay"
+          className={`absolute inset-0 bg-slate-900/50 transition-opacity duration-300 ${
+            isOpen ? 'opacity-100' : 'opacity-0'
+          }`}
+          onClick={onClose}
+        />
+        <aside
+          className={`relative h-full w-72 max-w-[85vw] border-r border-brand-400/30 bg-brand-700 shadow-xl transition-transform duration-300 ease-out ${
+            isOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+        >
+          <SidebarContent
+            canAccessPayments={canAccessPayments}
+            canAccessReports={canAccessReports}
+            onClose={onClose}
+            isCollapsed={false}
+            onToggleCollapse={onToggleCollapse}
+            isMobile
           />
-          <aside className="relative h-full w-64 border-r border-brand-400/30 bg-brand-700 shadow-xl">
-            <SidebarContent
-              canAccessPayments={canAccessPayments}
-              canAccessReports={canAccessReports}
-              onClose={onClose}
-              isCollapsed={false}
-              onToggleCollapse={onToggleCollapse}
-              isMobile
-            />
-          </aside>
-        </div>
-      ) : null}
+        </aside>
+      </div>
     </>
   );
 };

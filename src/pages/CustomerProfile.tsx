@@ -61,7 +61,7 @@ const CustomerProfile = ({ role }: CustomerProfileProps) => {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="min-w-0 space-y-6">
       <Card title="Customer Information">
         <div className="grid gap-3 text-sm md:grid-cols-2">
           <p>
@@ -104,6 +104,7 @@ const CustomerProfile = ({ role }: CustomerProfileProps) => {
         ]}
         hasData={customerContracts.length > 0}
         emptyMessage="This customer has no contracts."
+        minWidthClassName="min-w-[980px]"
       >
         {customerContracts.map((contract) => (
           <tr key={contract.id}>
@@ -118,7 +119,7 @@ const CustomerProfile = ({ role }: CustomerProfileProps) => {
               {formatCurrency(getContractOutstanding(contract))}
             </td>
             <td className="whitespace-nowrap px-4 py-3">
-              <Link className="btn-secondary inline-flex" to={`/contracts/${contract.id}`}>
+              <Link className="btn-secondary w-full sm:w-auto" to={`/contracts/${contract.id}`}>
                 View Contract
               </Link>
             </td>

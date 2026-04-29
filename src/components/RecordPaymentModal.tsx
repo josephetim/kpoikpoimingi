@@ -72,8 +72,8 @@ const RecordPaymentModal = ({
   };
 
   return (
-    <Modal open={open} onClose={onClose} title="Record Payment">
-      <form className="space-y-4" onSubmit={handleSubmit}>
+    <Modal open={open} onClose={onClose} title="Record Payment" widthClassName="sm:max-w-lg">
+      <form className="min-w-0 space-y-4" onSubmit={handleSubmit}>
         <div>
           <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-600">
             Amount
@@ -82,7 +82,7 @@ const RecordPaymentModal = ({
             type="number"
             value={amount}
             onChange={(event) => setAmount(event.target.value)}
-            className="input-base"
+            className="input-base w-full min-w-0"
             placeholder="e.g. 250000"
           />
         </div>
@@ -95,7 +95,7 @@ const RecordPaymentModal = ({
             type="date"
             value={paymentDate}
             onChange={(event) => setPaymentDate(event.target.value)}
-            className="input-base"
+            className="input-base w-full min-w-0"
           />
         </div>
 
@@ -106,7 +106,7 @@ const RecordPaymentModal = ({
           <select
             value={paymentMethod}
             onChange={(event) => setPaymentMethod(event.target.value as PaymentMethod)}
-            className="input-base"
+            className="input-base w-full min-w-0"
           >
             {PAYMENT_METHODS.map((method) => (
               <option key={method} value={method}>
@@ -124,18 +124,18 @@ const RecordPaymentModal = ({
             type="text"
             value={reference}
             onChange={(event) => setReference(event.target.value)}
-            className="input-base"
+            className="input-base w-full min-w-0"
             placeholder="e.g. UTR10293847"
           />
         </div>
 
         {error ? <p className="text-xs font-semibold text-red-600">{error}</p> : null}
 
-        <div className="flex justify-end gap-2">
-          <button type="button" className="btn-secondary" onClick={onClose}>
+        <div className="flex flex-wrap justify-end gap-2">
+          <button type="button" className="btn-secondary w-full sm:w-auto" onClick={onClose}>
             Cancel
           </button>
-          <button type="submit" className="btn-primary" disabled={isSubmitting}>
+          <button type="submit" className="btn-primary w-full sm:w-auto" disabled={isSubmitting}>
             {isSubmitting ? 'Recording...' : 'Save Payment'}
           </button>
         </div>

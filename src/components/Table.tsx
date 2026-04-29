@@ -5,12 +5,19 @@ interface TableProps {
   children: ReactNode;
   hasData: boolean;
   emptyMessage?: string;
+  minWidthClassName?: string;
 }
 
-const Table = ({ headers, children, hasData, emptyMessage = 'No records found.' }: TableProps) => {
+const Table = ({
+  headers,
+  children,
+  hasData,
+  emptyMessage = 'No records found.',
+  minWidthClassName = 'min-w-[900px]',
+}: TableProps) => {
   return (
-    <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-soft">
-      <table className="min-w-full divide-y divide-slate-200 text-sm">
+    <div className="min-w-0 w-full max-w-full overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-soft">
+      <table className={`${minWidthClassName} w-full divide-y divide-slate-200 text-sm`}>
         <thead className="bg-slate-50">
           <tr>
             {headers.map((header) => (

@@ -122,7 +122,7 @@ const ContractDetail = ({ role }: ContractDetailProps) => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="min-w-0 space-y-6">
       {feedback ? (
         <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
           {feedback}
@@ -154,7 +154,7 @@ const ContractDetail = ({ role }: ContractDetailProps) => {
         </Card>
 
         <Card title="Contract Information">
-          <div className="grid grid-cols-2 gap-3 text-sm">
+          <div className="grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
             <p>
               <span className="font-semibold text-slate-700">Item:</span> {contract.item}
             </p>
@@ -213,20 +213,20 @@ const ContractDetail = ({ role }: ContractDetailProps) => {
       <div className="flex flex-wrap gap-2">
         <button
           type="button"
-          className="btn-primary"
+          className="btn-primary w-full sm:w-auto"
           onClick={() => setIsRecordPaymentOpen(true)}
           disabled={!canRecordPayment}
         >
           Record Payment
         </button>
-        <button type="button" className="btn-secondary" onClick={handleGenerateReceipt}>
+        <button type="button" className="btn-secondary w-full sm:w-auto" onClick={handleGenerateReceipt}>
           Generate Receipt
         </button>
         {canPerformRiskActions ? (
           <>
             <button
               type="button"
-              className="btn-danger"
+              className="btn-danger w-full sm:w-auto"
               onClick={handleFlagContract}
               disabled={flagContractMutation.isPending}
             >
@@ -234,7 +234,7 @@ const ContractDetail = ({ role }: ContractDetailProps) => {
             </button>
             <button
               type="button"
-              className="btn-danger"
+              className="btn-danger w-full sm:w-auto"
               onClick={handleTerminateContract}
               disabled={terminateContractMutation.isPending}
             >
@@ -247,6 +247,7 @@ const ContractDetail = ({ role }: ContractDetailProps) => {
       <Table
         headers={['Month', 'Due Date', 'Amount Due', 'Amount Paid', 'Status', 'Date Paid']}
         hasData={contract.schedule.length > 0}
+        minWidthClassName="min-w-[860px]"
       >
         {contract.schedule.map((scheduleItem) => (
           <tr key={`${contract.id}-${scheduleItem.month}`}>
